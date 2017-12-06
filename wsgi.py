@@ -1,5 +1,9 @@
 from flask import Flask
 from flask import render_template
+from gevent import monkey
+
+# patches stdlib (including socket and ssl modules) to cooperate with other greenlets
+monkey.patch_all()
 
 application = Flask(__name__)
 

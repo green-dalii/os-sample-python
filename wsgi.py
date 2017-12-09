@@ -34,10 +34,6 @@ def hello():
 def wxapp():
     return '已连接至鑫诚云'
 
-@application.route("/wxapp/upload", methods=['POST'])
-def upload():
-    return '**************###########Got data!'
-
 @application.errorhandler(404)
 def page_not_found(error):
     return render_template('404.html'), 404

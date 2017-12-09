@@ -19,7 +19,6 @@ class Bill1(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	customerName = db.Column(db.Unicode(64), unique=False, nullable=False, index=True)
 	date = db.Column(db.Date,unique=False, nullable=False, index=True)
-	time = db.Column(db)
 
 	def __init__(self, arg):
 		super(ClassName, self).__init__()

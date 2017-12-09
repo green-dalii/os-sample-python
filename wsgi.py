@@ -1,19 +1,34 @@
+# -*- coding: utf-8 -*-
 from flask import Flask
 from flask import render_template
 from gevent import monkey
+
+from flask_sqlalchemy import SQLAlchemy
 
 # patches stdlib (including socket and ssl modules) to cooperate with other greenlets
 monkey.patch_all()
 
 application = Flask(__name__)
+application.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////db/bill1.db'
+db = SQLAlchemy(application)
+
+#Database Configuration
+class Bill1(db.Model):
+	"""define bill data model"""
+	id = db.Column(db.Integer, primary_key=True)
+	customerName = db.Column(db.String(80), unique=False, nullable=False)
+	def __init__(self, arg):
+		super(ClassName, self).__init__()
+		self.arg = arg
+		
 
 @application.route("/")
 def hello():
     return render_template('index.html')
 
-@application.route("/wxapp")
+@application.route("/wxapp/check")
 def wxapp():
-    return 'Hello form OpenShift!'
+    return '已连接至鑫诚云'
 
 @application.errorhandler(404)
 def page_not_found(error):

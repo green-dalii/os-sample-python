@@ -36,7 +36,7 @@ def wxapp():
 
 @application.route("/wxapp/upload",methods=['POST'])
 def upload():
-    return 'Got It!!!',request.get_json(force=True)
+    return 'Got It!!!',request.get_json(force=True).encode('utf-8')
 
 @application.errorhandler(404)
 def page_not_found(error):

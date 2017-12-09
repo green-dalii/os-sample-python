@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import Flask
 from flask import render_template
+from flask import request
 from gevent import monkey
 
 from flask_sqlalchemy import SQLAlchemy
@@ -16,7 +17,10 @@ db = SQLAlchemy(application)
 class Bill1(db.Model):
 	"""define bill data model"""
 	id = db.Column(db.Integer, primary_key=True)
-	customerName = db.Column(db.String(80), unique=False, nullable=False)
+	customerName = db.Column(db.Unicode(64), unique=False, nullable=False, index=True)
+	date = db.Column(db.Date,unique=False, nullable=False, index=True)
+	time = db.Column(db)
+
 	def __init__(self, arg):
 		super(ClassName, self).__init__()
 		self.arg = arg
@@ -29,6 +33,10 @@ def hello():
 @application.route("/wxapp/check")
 def wxapp():
     return '已连接至鑫诚云'
+
+@application.route("/wxapp/upload", methods=['POST'])
+def upload():
+    return '**************###########Got data!',request.get_json()
 
 @application.errorhandler(404)
 def page_not_found(error):
